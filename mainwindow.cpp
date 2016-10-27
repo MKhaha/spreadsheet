@@ -5,6 +5,7 @@
 #include "spreadsheet.h"
 #include "scanworkpiecedialog.h"
 #include "setdatabaseandtabledialog.h"
+#include "infomationmanagerofserialnumber.h"
 #include <QTime>
 #include <QDebug>
 #include <QCloseEvent>
@@ -31,6 +32,9 @@ MainWindow::MainWindow()
     findDialog = 0;
     scanWorkPieceDialog = 0;
     setDatabaseAndTableDialog = 0;
+    infomationManager = new InfomationManagerOfserialNumber();
+    connect(infomationManager, SIGNAL(inserInfomationToSpreadSheet(QList<QString>)),
+            spreadsheet, SLOT(inputOnePiece(QList<QString>)));
 
     setWindowIcon(QIcon(":/images/icon.png"));
     setCurrentFile("");
@@ -119,10 +123,8 @@ void MainWindow::scanWorkPiece()
     if(!scanWorkPieceDialog)
     {
         scanWorkPieceDialog = new ScanWorkPieceDialog(this);
-        connect(scanWorkPieceDialog, SIGNAL(newSerialNumbers(QString,QList<QString>&)),
-                setDatabaseAndTableDialog, SLOT(getInfomationOfSerialNumber(QString,QList<QString>&)));
-        connect(setDatabaseAndTableDialog, SIGNAL(inserInfomationToSpreadSheet(QList<QString>)),
-                spreadsheet, SLOT(inputOnePiece(QList<QString>)));
+        connect(scanWorkPieceDialog, SIGNAL(newSerialNumbers(QString)),
+                infomationManager, SLOT(getInfomationOfSerialNumber(QString)));
     }
     scanWorkPieceDialog->show();
     scanWorkPieceDialog->raise();
@@ -134,6 +136,12 @@ void MainWindow::setDatabaseAndTable()
     if(!setDatabaseAndTableDialog)
     {
         setDatabaseAndTableDialog = new SetDatabaseAndTableDialog(this);
+        connect(setDatabaseAndTableDialog, SIGNAL(testConnetctionWithSqlSignal(QHash<QString,QString>&)),
+                infomationManager, SLOT(testConnetction(QHash<QString,QString>&)));
+        connect(setDatabaseAndTableDialog, SIGNAL(setDatabaseNameAndTableNameSignal(QHash<QString,QString>&)),
+                infomationManager, SLOT(setParameterOfConnection(QHash<QString,QString>&)));
+        connect(infomationManager, SIGNAL(okConnectionWithSql(bool)),
+                setDatabaseAndTableDialog, SLOT(okConnectionSlot(bool)));
     }
     setDatabaseAndTableDialog->show();
     setDatabaseAndTableDialog->raise();

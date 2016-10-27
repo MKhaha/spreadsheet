@@ -9,6 +9,7 @@ class FindDialog;
 class Spreadsheet;
 class ScanWorkPieceDialog;
 class SetDatabaseAndTableDialog;
+class InfomationManagerOfserialNumber;
 
 class MainWindow : public QMainWindow
 {
@@ -54,6 +55,7 @@ private:
     FindDialog *findDialog;
     ScanWorkPieceDialog *scanWorkPieceDialog;
     SetDatabaseAndTableDialog *setDatabaseAndTableDialog;
+    InfomationManagerOfserialNumber *infomationManager;
     QLabel *locationLabel;
     QLabel *formulaLabel;
     QStringList recentFiles;

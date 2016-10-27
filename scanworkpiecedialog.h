@@ -16,7 +16,7 @@ public:
     ~ScanWorkPieceDialog();
 
 signals:
-    void newSerialNumbers(const QString &, QList<QString> &list);
+    void newSerialNumbers(const QString &);
 
 private slots:
     void setLineEditEnable();
@@ -31,7 +31,6 @@ private:
     int targetMinValue;
     int targetMaxValue;
     int targetValue;
-    QList<QString> listString;
 };
 
 #endif // SCANWORKPIECEDIALOG_H

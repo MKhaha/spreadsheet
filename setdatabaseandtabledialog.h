@@ -18,14 +18,15 @@ public:
     ~SetDatabaseAndTableDialog();
 
 signals:
-    void inserInfomationToSpreadSheet(const QList<QString> &list);
+    void testConnetctionWithSqlSignal(QHash<QString, QString> &hash);
+    void setDatabaseNameAndTableNameSignal(QHash<QString, QString> &hash);
 
 public slots:
-    void getInfomationOfSerialNumber(const QString &str, QList<QString> &list);
+    void okConnectionSlot(bool okConnection);
 
 private slots:
-    void testConnetctionWithSql(void);
-    void createConnectionWithSql(void);
+    void testConnetction(void);
+    void setParameter(void);
 
 private:
     Ui::SetDatabaseAndTableDialog *ui;
@@ -36,7 +37,11 @@ private:
     QString username;
     QString password;
     QSqlDatabase database;
+    QHash<QString, QString> hashConnetcion;
 
+    void setHashMap(QString emptyString,QHash<QString, QString> &hash,
+                    QString key, QString value);
+    void getAndSetParameter(void);
     void getParameterOfConnectionFromLineText(void);
     void setParameterOfConnection(void);
     int getColumnCount(void);

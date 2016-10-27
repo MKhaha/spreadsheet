@@ -10,9 +10,10 @@ ScanWorkPieceDialog::ScanWorkPieceDialog(QWidget *parent) :
     ui->setupUi(this);
 
     ui->stopScanButton->setEnabled(false);
-
+#if 0
     QRegExp regExp("[1-9][0-9]{12}");
     ui->currentSerialNumberslineEdit->setValidator(new QRegExpValidator(regExp, this));
+#endif
     ui->currentSerialNumberslineEdit->setEnabled(false);
     currentTotalValue = 0;
 
@@ -69,11 +70,8 @@ void ScanWorkPieceDialog::currentSerialNumberslineEdit_returnPressed()
     {
         ui->progressBar->setValue(100);
     }
-    if(true != listString.empty())
-    {
-        listString.clear();
-    }
-    emit newSerialNumbers(ui->currentSerialNumberslineEdit->text(), listString);
+
+    emit newSerialNumbers(ui->currentSerialNumberslineEdit->text());
     ui->currentSerialNumberslineEdit->clear();
 }
 

@@ -99,6 +99,7 @@ void SetDatabaseAndTableDialog::setParameter(void)
 {
     getAndSetParameter();
     emit setDatabaseNameAndTableNameSignal(hashConnetcion);
+    this->close();
 
     return;
 }

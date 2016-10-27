@@ -1,5 +1,6 @@
 #include "scanworkpiecedialog.h"
 #include "ui_scanworkpiecedialog.h"
+#include <QDebug>
 
 static QString currentTotalNum = "current total num:";
 
@@ -31,8 +32,10 @@ ScanWorkPieceDialog::ScanWorkPieceDialog(QWidget *parent) :
     connect(ui->starScanButton, SIGNAL(clicked()), this, SLOT(setLineEditEnable()));
     connect(ui->stopScanButton, SIGNAL(clicked()), this, SLOT(setLineEidtDisable()));
 
-    connect(ui->currentSerialNumberslineEdit, SIGNAL(editingFinished()), this, SLOT(currentSerialNumberslineEdit_returnPressed()));
-    connect(ui->targetValueLineEdit, SIGNAL(editingFinished()), this, SLOT(targetValueLineEdit_returnPressed()));
+    connect(ui->currentSerialNumberslineEdit, SIGNAL(returnPressed()),
+            this, SLOT(currentSerialNumberslineEdit_returnPressed()));
+    connect(ui->targetValueLineEdit, SIGNAL(returnPressed()),
+            this, SLOT(targetValueLineEdit_returnPressed()));
 }
 
 void ScanWorkPieceDialog::setLineEditEnable()
@@ -70,7 +73,7 @@ void ScanWorkPieceDialog::currentSerialNumberslineEdit_returnPressed()
     {
         ui->progressBar->setValue(100);
     }
-
+    qDebug() << "test........";
     emit newSerialNumbers(ui->currentSerialNumberslineEdit->text());
     ui->currentSerialNumberslineEdit->clear();
 }

@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <QDate>
 #include <QTime>
+#include <QDebug>
 
 InfomationManagerOfserialNumber::InfomationManagerOfserialNumber(QObject *parent) : QObject(parent)
 {
@@ -101,6 +102,8 @@ void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString 
     QSqlQuery sqlQuery;
     QString selectSql;
 
+    QString fieldName = "serialnumber";
+
     if(true != listString.isEmpty())
     {
         listString.clear();
@@ -117,18 +120,21 @@ void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString 
     listString << currentDateAndTime;
 
     // get information of the serial number
-    selectSql = QString("select * from %1.%2 where ID=%3").arg(databaseName).arg(tableName).arg(str);
+    selectSql = QString("select * from %1.%2 where %3=%4")
+            .arg(databaseName).arg(tableName).arg(fieldName).arg(str);
+    qDebug() << selectSql;
     sqlQuery.exec(selectSql);
 
     if(!sqlQuery.isActive())
     {
         // set database error if database error when excute database select
-        listString << "database error";
+        listString << sqlQuery.lastError().text();
         goto evnOut;
     }
     else
     {
-        // 只取第一行信息
+        // only get first row
+        sqlQuery.first();
         QSqlRecord record = sqlQuery.record();
         if(true == record.isEmpty())
         {
@@ -145,7 +151,11 @@ void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString 
             }
             else
             {
-                listString << record.value(i).toString();
+                // get information of serial number exclude serialnumber
+                if(str != record.value(i).toString())
+                {
+                    listString << record.value(i).toString();
+                }
             }
             i++;
         }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SetDatabaseAndTableDialog</class>
+ <widget class="QDialog" name="SetDatabaseAndTableDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>380</width>
+    <height>207</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SetDatabaseAndTableDialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="hostnameLabel">
+       <property name="text">
+        <string>Host Name/IP address: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="hostnameLineEdit">
+       <property name="text">
+        <string>localhost</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="portLabel">
+       <property name="text">
+        <string>Port: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="portLineEdit">
+       <property name="text">
+        <string>3306</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="userNameLabel">
+       <property name="text">
+        <string>User Name: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="userNameLineEdit">
+       <property name="text">
+        <string>root</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="passwordLabel">
+       <property name="text">
+        <string>Password: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="passwordLineEdit">
+       <property name="text">
+        <string>MKhaha_05050909</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="databaseNameLabel">
+       <property name="text">
+        <string>Database Name: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="databaseNameLineEdit">
+       <property name="text">
+        <string>ssss</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="tableNameLabel">
+       <property name="text">
+        <string>Table Name: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="tableNameLineEdit">
+       <property name="text">
+        <string>testQt</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="testConnectionPushButton">
+       <property name="text">
+        <string>Test Connection</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>hostnameLineEdit</tabstop>
+  <tabstop>portLineEdit</tabstop>
+  <tabstop>databaseNameLineEdit</tabstop>
+  <tabstop>tableNameLineEdit</tabstop>
+  <tabstop>userNameLineEdit</tabstop>
+  <tabstop>passwordLineEdit</tabstop>
+  <tabstop>testConnectionPushButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

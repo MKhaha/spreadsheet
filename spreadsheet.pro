@@ -11,8 +11,8 @@ HEADERS       = cell.h \
                 sortdialog.h \
                 spreadsheet.h \
                 scanworkpiecedialog.h \
-    setdatabaseandtabledialog.h
-    #infomationmanagerofserialnumber.h
+    setdatabaseandtabledialog.h \
+    infomationmanagerofserialnumber.h
 SOURCES       = cell.cpp \
                 finddialog.cpp \
                 gotocelldialog.cpp \
@@ -21,8 +21,8 @@ SOURCES       = cell.cpp \
                 sortdialog.cpp \
                 spreadsheet.cpp \
                 scanworkpiecedialog.cpp \
-    setdatabaseandtabledialog.cpp
-    #infomationmanagerofserialnumber.cpp
+    setdatabaseandtabledialog.cpp \
+    infomationmanagerofserialnumber.cpp
 FORMS         = gotocelldialog.ui \
                 sortdialog.ui     \
                 scanworkpiecedialog.ui \

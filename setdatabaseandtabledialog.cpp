@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlRecord>
 #include <QDate>
 #include <QTime>
 
@@ -98,7 +99,6 @@ int SetDatabaseAndTableDialog::getColumnCount()
     }
     else
     {
-        qDebug() << "test1";
         sqlQuery.next();
         count = sqlQuery.value(0).toInt();
         return count;
@@ -108,7 +108,7 @@ int SetDatabaseAndTableDialog::getColumnCount()
 void SetDatabaseAndTableDialog::getInfomationOfSerialNumber(const QString &str, QList<QString> &list)
 {
     int i = 0;
-    int columnCount;
+    int columnCount = 0;
     QDate date;
     QTime time;
     QString currentDateAndTime;
@@ -116,40 +116,48 @@ void SetDatabaseAndTableDialog::getInfomationOfSerialNumber(const QString &str, 
     QSqlQuery sqlQuery;
     QString selectSql;
 
+    // set serial number as first field
     list << str;
 
+    // set data as second fiel
     date = QDate::currentDate();
     time = QTime::currentTime();
     currentDateAndTime =
             QString("%1 %2").arg(date.toString("dd-MM-yyyy")).arg(time.toString("hh:mm:ss.zzz"));
     list << currentDateAndTime;
 
-    columnCount = 0;
-    columnCount = getColumnCount();
-    if(0 == columnCount)
-    {
-        list << "no infomation";
-        goto evnOut;
-    }
-
+    // get information of the serial number
     selectSql = QString("select * from %1.%2 where ID=%3").arg(databaseName).arg(tableName).arg(str);
     sqlQuery.exec(selectSql);
 
     if(!sqlQuery.isActive())
     {
         QMessageBox::warning(this, tr("Database Error"), sqlQuery.lastError().text());
-        list << "no infomation";
+        // set database error if database error when excute database select
+        list << "database error";
         goto evnOut;
     }
     else
     {
         // 只取第一行信息
-        sqlQuery.first();
-        qDebug() << "test2";
-
+        QSqlRecord record = sqlQuery.record();
+        if(true == record.isEmpty())
+        {
+            // set no record if not found
+            list << "no infomation";
+            goto evnOut;
+        }
+        columnCount = record.count();
         while(i < columnCount)
         {
-            list << sqlQuery.value(i).toString();
+            if(true == record.isNull(i))
+            {
+                list << "NULL";
+            }
+            else
+            {
+                list << record.value(i).toString();
+            }
             i++;
         }
         goto evnOut;

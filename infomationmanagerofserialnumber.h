@@ -14,11 +14,15 @@ public:
 signals:
     void inserInfomationToSpreadSheet(const QList<QString> &list);
     void okConnectionWithSql(bool okConnection);
+    void columnsNameInfomation(const QList<QString> &list);
+    void multipleRecordInfomation(const QList<QString> &list, const int fieldCount);
 
 public slots:
     void getInfomationOfSerialNumber(const QString &str);
     void testConnetction(QHash<QString, QString> &hash);
     void setParameterOfConnection(QHash<QString, QString> &hash);
+    void getColumnsName();
+    void getDataFromMysql(const QString &fieldName, const QString &value);
 
 private:
     QString hostName;

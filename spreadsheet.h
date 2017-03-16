@@ -35,6 +35,7 @@ public slots:
     void findNext(const QString &str, Qt::CaseSensitivity cs);
     void findPrevious(const QString &str, Qt::CaseSensitivity cs);
     void inputOnePiece(const QList<QString> &list);
+    void writeMultipleRecord(const QList<QString> &list, const int columnCount);
 
 signals:
     void modified();

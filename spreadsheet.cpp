@@ -243,9 +243,9 @@ void Spreadsheet::setItemTest(int row, int column, const QString &str)
     setFormula(row, column + 1, currentDateAndTime);
 }
 
+//wirte one record to spreedsheet, from current position
 void Spreadsheet::inputOnePiece(const QList<QString> &list)
 {
-    //qDebug() << "current";
     QList<QString>::const_iterator iteratorList;
     int i = 0;
 
@@ -257,9 +257,36 @@ void Spreadsheet::inputOnePiece(const QList<QString> &list)
         setFormula(currentRowNum, currentColumnNum + i, *iteratorList);
     }
     setCurrentCell(currentRowNum + 1, currentColumnNum);
-
-    //qDebug() << (currentRowNum + 1);
 }
+
+//write multiple record to spreedsheet, from (zero,zero) position
+void Spreadsheet::writeMultipleRecord(const QList<QString> &list, const int columnCount)
+{
+    QList<QString>::const_iterator iteratorList;
+    int i = 0;
+    int currentRowNum = 0;
+    int currentColumnNum = 0;
+    int columnCountLocal = columnCount;
+
+    if(columnCountLocal == 0)
+    {
+        QMessageBox::warning(this, tr("writeMultipleRecord"),
+                             tr("writeMultipleRecord:record is null"));
+        return;
+    }
+
+    clear();
+
+    for(i = 0, iteratorList = list.begin(); iteratorList != list.end(); ++i, ++iteratorList)
+    {
+        currentRowNum = i / columnCount;
+        currentColumnNum = i % columnCount;
+
+        setFormula(currentRowNum, currentColumnNum, *iteratorList);
+    }
+    setCurrentCell(currentRowNum, currentColumnNum);
+}
+
 void Spreadsheet::setAutoRecalculate(bool recalc)
 {
     autoRecalc = recalc;

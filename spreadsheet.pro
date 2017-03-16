@@ -12,7 +12,8 @@ HEADERS       = cell.h \
                 spreadsheet.h \
                 scanworkpiecedialog.h \
     setdatabaseandtabledialog.h \
-    infomationmanagerofserialnumber.h
+    infomationmanagerofserialnumber.h \
+    getdatafrommysqldialog.h
 SOURCES       = cell.cpp \
                 finddialog.cpp \
                 gotocelldialog.cpp \
@@ -22,9 +23,11 @@ SOURCES       = cell.cpp \
                 spreadsheet.cpp \
                 scanworkpiecedialog.cpp \
     setdatabaseandtabledialog.cpp \
-    infomationmanagerofserialnumber.cpp
+    infomationmanagerofserialnumber.cpp \
+    getdatafrommysqldialog.cpp
 FORMS         = gotocelldialog.ui \
                 sortdialog.ui     \
                 scanworkpiecedialog.ui \
-    setdatabaseandtabledialog.ui
+    setdatabaseandtabledialog.ui \
+    getdatafrommysqldialog.ui
 RESOURCES     = spreadsheet.qrc

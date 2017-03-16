@@ -91,6 +91,95 @@ int InfomationManagerOfserialNumber::getColumnCount()
     }
 }
 
+//get columns name from current database.table;
+void InfomationManagerOfserialNumber::getColumnsName()
+{
+    qDebug() << "record.fieldName(i)";
+
+    if(true != listString.isEmpty())
+    {
+        listString.clear();
+    }
+
+    QString selectQuery = QString("SELECT * FROM %1.%2 LIMIT 1").arg(databaseName).arg(tableName);
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(selectQuery))
+    {
+        listString << sqlQuery.lastError().text();
+        qDebug() << sqlQuery.lastError().text();
+        emit columnsNameInfomation(listString);
+        return;
+    }
+
+    QSqlRecord record = sqlQuery.record();
+    int columnCount = record.count();
+    int i = 0;
+    while(i < columnCount)
+    {
+        listString << record.fieldName(i);
+        qDebug() << record.fieldName(i);
+        i++;
+    }
+
+    emit columnsNameInfomation(listString);
+    return;
+}
+
+void InfomationManagerOfserialNumber::getDataFromMysql(const QString &fieldName, const QString &value)
+{
+    int columnCount = 0;
+    int i = 0;
+    QSqlRecord record;
+    if(true != listString.isEmpty())
+    {
+        listString.clear();
+    }
+
+    qDebug() << fieldName;
+    qDebug() << value;
+
+    QString selectQuery = QString("SELECT * FROM %1.%2 WHERE %3 LIKE '%%4%'")
+                                .arg(databaseName).arg(tableName).arg(fieldName).arg(value);
+    qDebug() << selectQuery;
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(selectQuery))
+    {
+        listString << sqlQuery.lastError().text();
+        goto multipleRecordInfomationout;
+    }
+    qDebug() << "test";
+    record = sqlQuery.record();
+    columnCount = record.count();
+    i = 0;
+    while(i < columnCount)
+    {
+        listString << record.fieldName(i);
+        qDebug() << record.fieldName(i);
+        i++;
+    }
+
+    qDebug() << sqlQuery.size();
+    if(sqlQuery.size() == 0)
+    {
+        listString << "empty set";
+        goto multipleRecordInfomationout;
+    }
+    while(sqlQuery.next())
+    {
+        i = 0;
+        while(i < columnCount)
+        {
+            listString << sqlQuery.value(i).toString();
+            qDebug() << sqlQuery.value(i).toString();
+            i++;
+        }
+    }
+
+multipleRecordInfomationout:
+    emit multipleRecordInfomation(listString, columnCount);
+    return;
+}
+
 void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString &str)
 {
     int i = 0;

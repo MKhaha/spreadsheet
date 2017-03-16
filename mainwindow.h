@@ -10,6 +10,7 @@ class Spreadsheet;
 class ScanWorkPieceDialog;
 class SetDatabaseAndTableDialog;
 class InfomationManagerOfserialNumber;
+class GetDataFromMysqlDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -30,6 +31,7 @@ private slots:
     void goToCell();
     void scanWorkPiece();
     void setDatabaseAndTable();
+    void getDataFromMysql();
     void sort();
     void about();
     void openRecentFile();
@@ -56,6 +58,7 @@ private:
     ScanWorkPieceDialog *scanWorkPieceDialog;
     SetDatabaseAndTableDialog *setDatabaseAndTableDialog;
     InfomationManagerOfserialNumber *infomationManager;
+    GetDataFromMysqlDialog* getDataFromMysqlDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;
     QStringList recentFiles;
@@ -91,6 +94,7 @@ private:
     QAction *sortAction;
     QAction *scanWorkPieceAction;
     QAction *setDatabaseAndTableAction;
+    QAction *getDataFromMysqlDialogAction;
     QAction *showGridAction;
     QAction *autoRecalcAction;
     QAction *aboutAction;

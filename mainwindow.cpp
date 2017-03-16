@@ -6,6 +6,7 @@
 #include "scanworkpiecedialog.h"
 #include "setdatabaseandtabledialog.h"
 #include "infomationmanagerofserialnumber.h"
+#include "getdatafrommysqldialog.h"
 #include <QTime>
 #include <QDebug>
 #include <QCloseEvent>
@@ -32,6 +33,7 @@ MainWindow::MainWindow()
     findDialog = 0;
     scanWorkPieceDialog = 0;
     setDatabaseAndTableDialog = 0;
+    getDataFromMysqlDialog = 0;
     infomationManager = new InfomationManagerOfserialNumber();
     connect(infomationManager, SIGNAL(inserInfomationToSpreadSheet(QList<QString>)),
             spreadsheet, SLOT(inputOnePiece(QList<QString>)));
@@ -146,6 +148,24 @@ void MainWindow::setDatabaseAndTable()
     setDatabaseAndTableDialog->show();
     setDatabaseAndTableDialog->raise();
     setDatabaseAndTableDialog->activateWindow();
+}
+
+void MainWindow::getDataFromMysql()
+{
+    if(!getDataFromMysqlDialog)
+    {
+        getDataFromMysqlDialog = new GetDataFromMysqlDialog(this);
+        connect(getDataFromMysqlDialog, SIGNAL(getFieldName()), infomationManager, SLOT(getColumnsName()));
+        connect(getDataFromMysqlDialog, SIGNAL(searchDataFromMysql(QString, QString)),
+                infomationManager, SLOT(getDataFromMysql(QString,QString)));
+        connect(infomationManager, SIGNAL(columnsNameInfomation(QList<QString>)),
+                getDataFromMysqlDialog, SLOT(fieldNameList(QList<QString>)));
+        connect(infomationManager, SIGNAL(multipleRecordInfomation(QList<QString>,int)),
+                spreadsheet, SLOT(writeMultipleRecord(QList<QString>,int)));
+    }
+    getDataFromMysqlDialog->show();
+    getDataFromMysqlDialog->raise();
+    getDataFromMysqlDialog->activateWindow();
 }
 
 void MainWindow::sort()
@@ -327,6 +347,12 @@ void MainWindow::createActions()
     connect(setDatabaseAndTableAction, SIGNAL(triggered()),
             this, SLOT(setDatabaseAndTable()));
 
+    getDataFromMysqlDialogAction = new QAction(tr("get data from mysql"), this);
+    getDataFromMysqlDialogAction->setStatusTip(tr("get data from mysql"));
+    getDataFromMysqlDialogAction->setShortcut(tr("F12"));
+    connect(getDataFromMysqlDialogAction, SIGNAL(triggered()),
+            this, SLOT(getDataFromMysql()));
+
     showGridAction = new QAction(tr("&Show Grid"), this);
     showGridAction->setCheckable(true);
     showGridAction->setChecked(spreadsheet->showGrid());
@@ -386,6 +412,7 @@ void MainWindow::createMenus()
     editMenu->addAction(goToCellAction);
     editMenu->addAction(scanWorkPieceAction);
     editMenu->addAction(setDatabaseAndTableAction);
+    editMenu->addAction(getDataFromMysqlDialogAction);
 
     toolsMenu = menuBar()->addMenu(tr("&Tools"));
     toolsMenu->addAction(recalculateAction);

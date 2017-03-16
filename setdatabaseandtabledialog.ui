@@ -94,7 +94,7 @@
      <item row="2" column="1">
       <widget class="QLineEdit" name="databaseNameLineEdit">
        <property name="text">
-        <string>ssss</string>
+        <string>yongweiassets</string>
        </property>
        <property name="placeholderText">
         <string/>
@@ -111,7 +111,7 @@
      <item row="3" column="1">
       <widget class="QLineEdit" name="tableNameLineEdit">
        <property name="text">
-        <string>testqt</string>
+        <string>totalassets</string>
        </property>
       </widget>
      </item>

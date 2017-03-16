@@ -1,0 +1,3 @@
+调试过程中出现的问题：
+1、数据库连接问题：目前只能使用64位编译器，才能实现与64位mysql建立连接；
+2、libqrencode是使用debug模式使用VS2015编译的，如果要编译release spreadsheet版本，libqrencode也要编译

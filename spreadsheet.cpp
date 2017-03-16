@@ -287,6 +287,14 @@ void Spreadsheet::writeMultipleRecord(const QList<QString> &list, const int colu
     setCurrentCell(currentRowNum, currentColumnNum);
 }
 
+void Spreadsheet::getCurrentPositionText(QString &textCurrentPostion)
+{
+    qDebug() << currentFormula();
+    textCurrentPostion = currentFormula();
+    qDebug() << textCurrentPostion;
+    emit currentPositionText(textCurrentPostion);
+}
+
 void Spreadsheet::setAutoRecalculate(bool recalc)
 {
     autoRecalc = recalc;

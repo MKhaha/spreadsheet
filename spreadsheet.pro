@@ -13,7 +13,11 @@ HEADERS       = cell.h \
                 scanworkpiecedialog.h \
     setdatabaseandtabledialog.h \
     infomationmanagerofserialnumber.h \
-    getdatafrommysqldialog.h
+    getdatafrommysqldialog.h \
+    generateqrcodedialog.h \
+    qrencode.h \
+    qrencodepri.h \
+    qrencodepublic.h
 SOURCES       = cell.cpp \
                 finddialog.cpp \
                 gotocelldialog.cpp \
@@ -24,10 +28,16 @@ SOURCES       = cell.cpp \
                 scanworkpiecedialog.cpp \
     setdatabaseandtabledialog.cpp \
     infomationmanagerofserialnumber.cpp \
-    getdatafrommysqldialog.cpp
+    getdatafrommysqldialog.cpp \
+    generateqrcodedialog.cpp \
+    qrencodepri.cpp \
+    qrencodepublic.cpp
 FORMS         = gotocelldialog.ui \
                 sortdialog.ui     \
                 scanworkpiecedialog.ui \
     setdatabaseandtabledialog.ui \
-    getdatafrommysqldialog.ui
+    getdatafrommysqldialog.ui \
+    generateqrcodedialog.ui
 RESOURCES     = spreadsheet.qrc
+
+LIBS += -LE:/temp/ -lqrencode

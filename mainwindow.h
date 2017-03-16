@@ -11,6 +11,7 @@ class ScanWorkPieceDialog;
 class SetDatabaseAndTableDialog;
 class InfomationManagerOfserialNumber;
 class GetDataFromMysqlDialog;
+class GenerateQRcodeDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -32,6 +33,7 @@ private slots:
     void scanWorkPiece();
     void setDatabaseAndTable();
     void getDataFromMysql();
+    void generateQRcode();
     void sort();
     void about();
     void openRecentFile();
@@ -58,7 +60,8 @@ private:
     ScanWorkPieceDialog *scanWorkPieceDialog;
     SetDatabaseAndTableDialog *setDatabaseAndTableDialog;
     InfomationManagerOfserialNumber *infomationManager;
-    GetDataFromMysqlDialog* getDataFromMysqlDialog;
+    GetDataFromMysqlDialog *getDataFromMysqlDialog;
+    GenerateQRcodeDialog *generateQRcodeDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;
     QStringList recentFiles;
@@ -95,6 +98,7 @@ private:
     QAction *scanWorkPieceAction;
     QAction *setDatabaseAndTableAction;
     QAction *getDataFromMysqlDialogAction;
+    QAction *generateQRcodeDialogAction;
     QAction *showGridAction;
     QAction *autoRecalcAction;
     QAction *aboutAction;

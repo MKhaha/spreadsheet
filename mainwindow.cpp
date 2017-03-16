@@ -7,6 +7,7 @@
 #include "setdatabaseandtabledialog.h"
 #include "infomationmanagerofserialnumber.h"
 #include "getdatafrommysqldialog.h"
+#include "generateqrcodedialog.h"
 #include <QTime>
 #include <QDebug>
 #include <QCloseEvent>
@@ -34,6 +35,7 @@ MainWindow::MainWindow()
     scanWorkPieceDialog = 0;
     setDatabaseAndTableDialog = 0;
     getDataFromMysqlDialog = 0;
+    generateQRcodeDialog = 0;
     infomationManager = new InfomationManagerOfserialNumber();
     connect(infomationManager, SIGNAL(inserInfomationToSpreadSheet(QList<QString>)),
             spreadsheet, SLOT(inputOnePiece(QList<QString>)));
@@ -167,6 +169,22 @@ void MainWindow::getDataFromMysql()
     getDataFromMysqlDialog->raise();
     getDataFromMysqlDialog->activateWindow();
 }
+
+void MainWindow::generateQRcode()
+{
+    if(!generateQRcodeDialog)
+    {
+        generateQRcodeDialog = new GenerateQRcodeDialog(this);
+        connect(generateQRcodeDialog, SIGNAL(getTextCurrentPosition(QString&)),
+                spreadsheet, SLOT(getCurrentPositionText(QString&)));
+        connect(spreadsheet, SIGNAL(currentPositionText(QString&)),
+                generateQRcodeDialog, SLOT(textFromSpreedSheet(QString&)));
+    }
+    generateQRcodeDialog->show();
+    generateQRcodeDialog->raise();
+    generateQRcodeDialog->activateWindow();
+}
+
 
 void MainWindow::sort()
 {
@@ -353,6 +371,12 @@ void MainWindow::createActions()
     connect(getDataFromMysqlDialogAction, SIGNAL(triggered()),
             this, SLOT(getDataFromMysql()));
 
+    generateQRcodeDialogAction = new QAction(tr("generate QRcode"), this);
+    generateQRcodeDialogAction->setStatusTip(tr("generate QRcode"));
+    generateQRcodeDialogAction->setShortcut(tr("Ctrl+Q"));
+    connect(generateQRcodeDialogAction, SIGNAL(triggered(bool)),
+            this, SLOT(generateQRcode()));
+
     showGridAction = new QAction(tr("&Show Grid"), this);
     showGridAction->setCheckable(true);
     showGridAction->setChecked(spreadsheet->showGrid());
@@ -413,6 +437,7 @@ void MainWindow::createMenus()
     editMenu->addAction(scanWorkPieceAction);
     editMenu->addAction(setDatabaseAndTableAction);
     editMenu->addAction(getDataFromMysqlDialogAction);
+    editMenu->addAction(generateQRcodeDialogAction);
 
     toolsMenu = menuBar()->addMenu(tr("&Tools"));
     toolsMenu->addAction(recalculateAction);

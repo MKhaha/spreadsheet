@@ -16,21 +16,15 @@ public:
     ~ScanWorkPieceDialog();
 
 signals:
-    void newSerialNumbers(const QString &);
+    void newSerialNumbers(const QString &columnName, const QString &serialNumber);
 
 private slots:
     void setLineEditEnable();
     void setLineEidtDisable();
     void currentSerialNumberslineEdit_returnPressed();
-    void targetValueLineEdit_returnPressed();
 
 private:
     Ui::ScanWorkPieceDialog *ui;
-
-    int currentTotalValue;
-    int targetMinValue;
-    int targetMaxValue;
-    int targetValue;
 };
 
 #endif // SCANWORKPIECEDIALOG_H

@@ -1,8 +1,7 @@
 #include "scanworkpiecedialog.h"
 #include "ui_scanworkpiecedialog.h"
 #include <QDebug>
-
-static QString currentTotalNum = "current total num:";
+#include <QMessageBox>
 
 ScanWorkPieceDialog::ScanWorkPieceDialog(QWidget *parent) :
     QDialog(parent),
@@ -16,26 +15,12 @@ ScanWorkPieceDialog::ScanWorkPieceDialog(QWidget *parent) :
     ui->currentSerialNumberslineEdit->setValidator(new QRegExpValidator(regExp, this));
 #endif
     ui->currentSerialNumberslineEdit->setEnabled(false);
-    currentTotalValue = 0;
-
-    ui->currentTotalValueLabel->setText(QString("%1%2").arg(currentTotalNum).arg(currentTotalValue));
-    targetValue = 100;
-    targetMinValue = 1;
-    targetMaxValue = 1000000;
-    QString targetValueLineEditPlaceHolderText = QString("%1 %2(%3-%4)").\
-            arg(tr("defalut value")).arg(targetValue).arg(targetMinValue).arg(targetMaxValue);
-    ui->targetValueLineEdit->setPlaceholderText(targetValueLineEditPlaceHolderText);
-    ui->targetValueLineEdit->setValidator(new QIntValidator(targetMinValue, targetMaxValue));
-
-    ui->progressBar->setValue(int(double(currentTotalValue) / targetValue * 100));
 
     connect(ui->starScanButton, SIGNAL(clicked()), this, SLOT(setLineEditEnable()));
     connect(ui->stopScanButton, SIGNAL(clicked()), this, SLOT(setLineEidtDisable()));
 
     connect(ui->currentSerialNumberslineEdit, SIGNAL(returnPressed()),
             this, SLOT(currentSerialNumberslineEdit_returnPressed()));
-    connect(ui->targetValueLineEdit, SIGNAL(returnPressed()),
-            this, SLOT(targetValueLineEdit_returnPressed()));
 }
 
 void ScanWorkPieceDialog::setLineEditEnable()
@@ -52,29 +37,17 @@ void ScanWorkPieceDialog::setLineEidtDisable()
     ui->stopScanButton->setEnabled(false);
 }
 
-void ScanWorkPieceDialog::targetValueLineEdit_returnPressed()
-{
-    if(ui->targetValueLineEdit->hasAcceptableInput())
-    {
-        targetValue = ui->targetValueLineEdit->text().toInt();
-        ui->progressBar->setValue(int((double(currentTotalValue) / targetValue) * 100));
-    }
-}
-
 void ScanWorkPieceDialog::currentSerialNumberslineEdit_returnPressed()
 {
-    currentTotalValue += 1;
-    ui->currentTotalValueLabel->setText(QString("%1%2").arg(currentTotalNum).arg(currentTotalValue));
-    if(currentTotalValue <= targetValue)
+    if(!ui->columnNameLineEdit->hasAcceptableInput())
     {
-        ui->progressBar->setValue(int((double(currentTotalValue) / targetValue) * 100));
+        std::string strThisObjectName = this->objectName().toStdString();
+        const char* chThisObjectName = strThisObjectName.c_str();
+        QMessageBox::warning(this, tr(chThisObjectName),
+                             tr("column name is NULL"));
+        return;
     }
-    else
-    {
-        ui->progressBar->setValue(100);
-    }
-    qDebug() << "test........";
-    emit newSerialNumbers(ui->currentSerialNumberslineEdit->text());
+    emit newSerialNumbers(ui->columnNameLineEdit->text(), ui->currentSerialNumberslineEdit->text());
     ui->currentSerialNumberslineEdit->clear();
 }
 

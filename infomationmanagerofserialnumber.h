@@ -18,7 +18,7 @@ signals:
     void multipleRecordInfomation(const QList<QString> &list, const int fieldCount);
 
 public slots:
-    void getInfomationOfSerialNumber(const QString &str);
+    void getInfomationOfSerialNumber(const QString &columnName, const QString &str);
     void testConnetction(QHash<QString, QString> &hash);
     void setParameterOfConnection(QHash<QString, QString> &hash);
     void getColumnsName();
@@ -36,6 +36,7 @@ private:
 
     int getColumnCount();
     void setParameterLocal(QHash<QString, QString> &hash);
+    int queryMysql(QString query);
 };
 
 #endif // INFOMATIONMANAGEROFSERIALNUMBER_H

@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>349</width>
+    <height>159</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ScanWorkPieceDialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="starScanButton">
@@ -32,26 +32,12 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="currentSerialNumbersLabel">
-       <property name="text">
-        <string>current serial numbers:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="currentSerialNumberslineEdit"/>
-     </item>
-    </layout>
-   </item>
-   <item>
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="currentTotalValueLabel">
+      <widget class="QLabel" name="columnNameLabel">
        <property name="text">
-        <string>current total num:</string>
+        <string>Column Name:</string>
        </property>
       </widget>
      </item>
@@ -62,30 +48,47 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>10</width>
+         <width>40</width>
          <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="targetNumLabel">
+      <widget class="QLineEdit" name="columnNameLineEdit">
        <property name="text">
-        <string>target num:</string>
+        <string>固定资产编号</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="currentSerialNumbersLabel">
+       <property name="text">
+        <string>current serial numbers:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="targetValueLineEdit"/>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="currentSerialNumberslineEdit"/>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>24</number>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

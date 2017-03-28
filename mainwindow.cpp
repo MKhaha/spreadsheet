@@ -127,8 +127,11 @@ void MainWindow::scanWorkPiece()
     if(!scanWorkPieceDialog)
     {
         scanWorkPieceDialog = new ScanWorkPieceDialog(this);
-        connect(scanWorkPieceDialog, SIGNAL(newSerialNumbers(QString)),
-                infomationManager, SLOT(getInfomationOfSerialNumber(QString)));
+        connect(scanWorkPieceDialog, SIGNAL(newSerialNumbers(QString,QString)),
+                infomationManager, SLOT(getInfomationOfSerialNumber(QString,QString)));
+        connect(infomationManager, SIGNAL(multipleRecordInfomation(QList<QString>,int)),
+                spreadsheet, SLOT(writeMultipleRecord(QList<QString>,int)));
+
     }
     scanWorkPieceDialog->show();
     scanWorkPieceDialog->raise();
@@ -434,14 +437,15 @@ void MainWindow::createMenus()
     editMenu->addSeparator();
     editMenu->addAction(findAction);
     editMenu->addAction(goToCellAction);
-    editMenu->addAction(scanWorkPieceAction);
-    editMenu->addAction(setDatabaseAndTableAction);
-    editMenu->addAction(getDataFromMysqlDialogAction);
-    editMenu->addAction(generateQRcodeDialogAction);
 
     toolsMenu = menuBar()->addMenu(tr("&Tools"));
     toolsMenu->addAction(recalculateAction);
     toolsMenu->addAction(sortAction);
+    toolsMenu->addSeparator();
+    toolsMenu->addAction(setDatabaseAndTableAction);
+    toolsMenu->addAction(scanWorkPieceAction);
+    toolsMenu->addAction(getDataFromMysqlDialogAction);
+    toolsMenu->addAction(generateQRcodeDialogAction);
 
     optionsMenu = menuBar()->addMenu(tr("&Options"));
     optionsMenu->addAction(showGridAction);

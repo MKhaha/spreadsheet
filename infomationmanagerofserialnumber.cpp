@@ -125,27 +125,17 @@ void InfomationManagerOfserialNumber::getColumnsName()
     return;
 }
 
-void InfomationManagerOfserialNumber::getDataFromMysql(const QString &fieldName, const QString &value)
+int InfomationManagerOfserialNumber::queryMysql(QString query)
 {
     int columnCount = 0;
     int i = 0;
-    QSqlRecord record;
-    if(true != listString.isEmpty())
-    {
-        listString.clear();
-    }
-
-    qDebug() << fieldName;
-    qDebug() << value;
-
-    QString selectQuery = QString("SELECT * FROM %1.%2 WHERE %3 LIKE '%%4%'")
-                                .arg(databaseName).arg(tableName).arg(fieldName).arg(value);
-    qDebug() << selectQuery;
     QSqlQuery sqlQuery;
-    if(!sqlQuery.exec(selectQuery))
+    QSqlRecord record;
+
+    if(!sqlQuery.exec(query))
     {
         listString << sqlQuery.lastError().text();
-        goto multipleRecordInfomationout;
+        return columnCount;
     }
     qDebug() << "test";
     record = sqlQuery.record();
@@ -162,7 +152,7 @@ void InfomationManagerOfserialNumber::getDataFromMysql(const QString &fieldName,
     if(sqlQuery.size() == 0)
     {
         listString << "empty set";
-        goto multipleRecordInfomationout;
+        return columnCount;
     }
     while(sqlQuery.next())
     {
@@ -174,86 +164,46 @@ void InfomationManagerOfserialNumber::getDataFromMysql(const QString &fieldName,
             i++;
         }
     }
+    return columnCount;
+}
 
-multipleRecordInfomationout:
+void InfomationManagerOfserialNumber::getDataFromMysql(const QString &fieldName, const QString &value)
+{
+    int columnCount = 0;
+    if(true != listString.isEmpty())
+    {
+        listString.clear();
+    }
+
+    qDebug() << fieldName;
+    qDebug() << value;
+
+    QString selectQuery = QString("SELECT * FROM %1.%2 WHERE %3 LIKE '%%4%'")
+                                .arg(databaseName).arg(tableName).arg(fieldName).arg(value);
+
+    columnCount = queryMysql(selectQuery);
     emit multipleRecordInfomation(listString, columnCount);
     return;
 }
 
-void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString &str)
+void InfomationManagerOfserialNumber::getInfomationOfSerialNumber(const QString &columnName, const QString &str)
 {
-    int i = 0;
     int columnCount = 0;
-    QDate date;
-    QTime time;
-    QString currentDateAndTime;
-
-    QSqlQuery sqlQuery;
     QString selectSql;
 
-    QString fieldName = "serialnumber";
+    qDebug() << columnName;
+    qDebug() << str;
 
     if(true != listString.isEmpty())
     {
         listString.clear();
     }
 
-    // set serial number as first field
-    listString << str;
-
-    // set data as second fiel
-    date = QDate::currentDate();
-    time = QTime::currentTime();
-    currentDateAndTime =
-            QString("%1 %2").arg(date.toString("dd-MM-yyyy")).arg(time.toString("hh:mm:ss.zzz"));
-    listString << currentDateAndTime;
-
     // get information of the serial number
-    selectSql = QString("select * from %1.%2 where %3=%4")
-            .arg(databaseName).arg(tableName).arg(fieldName).arg(str);
-    qDebug() << selectSql;
-    sqlQuery.exec(selectSql);
-
-    if(!sqlQuery.isActive())
-    {
-        // set database error if database error when excute database select
-        listString << sqlQuery.lastError().text();
-        goto evnOut;
-    }
-    else
-    {
-        // only get first row
-        sqlQuery.first();
-        QSqlRecord record = sqlQuery.record();
-        if(true == record.isEmpty())
-        {
-            // set no record if not found
-            listString << "no infomation";
-            goto evnOut;
-        }
-        columnCount = record.count();
-        while(i < columnCount)
-        {
-            if(true == record.isNull(i))
-            {
-                listString << "NULL";
-            }
-            else
-            {
-                // get information of serial number exclude serialnumber
-                if(str != record.value(i).toString())
-                {
-                    listString << record.value(i).toString();
-                }
-            }
-            i++;
-        }
-        goto evnOut;
-
-    }
-
-evnOut:
-    emit inserInfomationToSpreadSheet(listString);
+    selectSql = QString("select * from %1.%2 where %3='%4'")
+            .arg(databaseName).arg(tableName).arg(columnName).arg(str);
+    columnCount = queryMysql(selectSql);
+    emit multipleRecordInfomation(listString, columnCount);
     return;
 }
 

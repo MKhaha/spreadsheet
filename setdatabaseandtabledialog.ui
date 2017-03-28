@@ -26,7 +26,7 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="hostnameLineEdit">
        <property name="text">
-        <string>localhost</string>
+        <string>192.168.1.8</string>
        </property>
        <property name="placeholderText">
         <string/>
@@ -77,7 +77,10 @@
      <item row="5" column="1">
       <widget class="QLineEdit" name="passwordLineEdit">
        <property name="text">
-        <string>MKhaha_05050909</string>
+        <string>123456</string>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
        </property>
        <property name="placeholderText">
         <string/>
@@ -94,7 +97,7 @@
      <item row="2" column="1">
       <widget class="QLineEdit" name="databaseNameLineEdit">
        <property name="text">
-        <string>yongweiassets</string>
+        <string>ywgroup</string>
        </property>
        <property name="placeholderText">
         <string/>
@@ -111,7 +114,7 @@
      <item row="3" column="1">
       <widget class="QLineEdit" name="tableNameLineEdit">
        <property name="text">
-        <string>totalassets</string>
+        <string>固定资产</string>
        </property>
       </widget>
      </item>

@@ -248,25 +248,25 @@ void MainWindow::spreadsheetModified()
 
 void MainWindow::createActions()
 {
-    newAction = new QAction(tr("&New"), this);
+    newAction = new QAction(tr("New"), this);
     newAction->setIcon(QIcon(":/images/new.png"));
     newAction->setShortcut(QKeySequence::New);
     newAction->setStatusTip(tr("Create a new spreadsheet file"));
     connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    openAction = new QAction(tr("&Open..."), this);
+    openAction = new QAction(tr("Open..."), this);
     openAction->setIcon(QIcon(":/images/open.png"));
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing spreadsheet file"));
     connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
 
-    saveAction = new QAction(tr("&Save"), this);
+    saveAction = new QAction(tr("Save"), this);
     saveAction->setIcon(QIcon(":/images/save.png"));
     saveAction->setShortcut(QKeySequence::Save);
     saveAction->setStatusTip(tr("Save the spreadsheet to disk"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
 
-    saveAsAction = new QAction(tr("Save &As..."), this);
+    saveAsAction = new QAction(tr("Save As..."), this);
     saveAsAction->setStatusTip(tr("Save the spreadsheet under a new "
                                   "name"));
     connect(saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
@@ -278,26 +278,26 @@ void MainWindow::createActions()
                 this, SLOT(openRecentFile()));
     }
 
-    exitAction = new QAction(tr("E&xit"), this);
+    exitAction = new QAction(tr("Exit"), this);
     exitAction->setShortcut(tr("Ctrl+Q"));
     exitAction->setStatusTip(tr("Exit the application"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    cutAction = new QAction(tr("Cu&t"), this);
+    cutAction = new QAction(tr("Cut"), this);
     cutAction->setIcon(QIcon(":/images/cut.png"));
     cutAction->setShortcut(QKeySequence::Cut);
     cutAction->setStatusTip(tr("Cut the current selection's contents "
                                "to the clipboard"));
     connect(cutAction, SIGNAL(triggered()), spreadsheet, SLOT(cut()));
 
-    copyAction = new QAction(tr("&Copy"), this);
+    copyAction = new QAction(tr("Copy"), this);
     copyAction->setIcon(QIcon(":/images/copy.png"));
     copyAction->setShortcut(QKeySequence::Copy);
     copyAction->setStatusTip(tr("Copy the current selection's contents "
                                 "to the clipboard"));
     connect(copyAction, SIGNAL(triggered()), spreadsheet, SLOT(copy()));
 
-    pasteAction = new QAction(tr("&Paste"), this);
+    pasteAction = new QAction(tr("Paste"), this);
     pasteAction->setIcon(QIcon(":/images/paste.png"));
     pasteAction->setShortcut(QKeySequence::Paste);
     pasteAction->setStatusTip(tr("Paste the clipboard's contents into "
@@ -305,53 +305,53 @@ void MainWindow::createActions()
     connect(pasteAction, SIGNAL(triggered()),
             spreadsheet, SLOT(paste()));
 
-    deleteAction = new QAction(tr("&Delete"), this);
+    deleteAction = new QAction(tr("Delete"), this);
     deleteAction->setShortcut(QKeySequence::Delete);
     deleteAction->setStatusTip(tr("Delete the current selection's "
                                   "contents"));
     connect(deleteAction, SIGNAL(triggered()),
             spreadsheet, SLOT(del()));
 
-    selectRowAction = new QAction(tr("&Row"), this);
+    selectRowAction = new QAction(tr("Row"), this);
     selectRowAction->setStatusTip(tr("Select all the cells in the "
                                      "current row"));
     connect(selectRowAction, SIGNAL(triggered()),
             spreadsheet, SLOT(selectCurrentRow()));
 
-    selectColumnAction = new QAction(tr("&Column"), this);
+    selectColumnAction = new QAction(tr("Column"), this);
     selectColumnAction->setStatusTip(tr("Select all the cells in the "
                                         "current column"));
     connect(selectColumnAction, SIGNAL(triggered()),
             spreadsheet, SLOT(selectCurrentColumn()));
 
-    selectAllAction = new QAction(tr("&All"), this);
+    selectAllAction = new QAction(tr("All"), this);
     selectAllAction->setShortcut(QKeySequence::SelectAll);
     selectAllAction->setStatusTip(tr("Select all the cells in the "
                                      "spreadsheet"));
     connect(selectAllAction, SIGNAL(triggered()),
             spreadsheet, SLOT(selectAll()));
 
-    findAction = new QAction(tr("&Find..."), this);
+    findAction = new QAction(tr("Find..."), this);
     findAction->setIcon(QIcon(":/images/find.png"));
     findAction->setShortcut(QKeySequence::Find);
     findAction->setStatusTip(tr("Find a matching cell"));
     connect(findAction, SIGNAL(triggered()), this, SLOT(find()));
 
-    goToCellAction = new QAction(tr("&Go to Cell..."), this);
+    goToCellAction = new QAction(tr("Go to Cell..."), this);
     goToCellAction->setIcon(QIcon(":/images/gotocell.png"));
     goToCellAction->setShortcut(tr("Ctrl+G"));
     goToCellAction->setStatusTip(tr("Go to the specified cell"));
     connect(goToCellAction, SIGNAL(triggered()),
             this, SLOT(goToCell()));
 
-    recalculateAction = new QAction(tr("&Recalculate"), this);
+    recalculateAction = new QAction(tr("Recalculate"), this);
     recalculateAction->setShortcut(tr("F9"));
     recalculateAction->setStatusTip(tr("Recalculate all the "
                                        "spreadsheet's formulas"));
     connect(recalculateAction, SIGNAL(triggered()),
             spreadsheet, SLOT(recalculate()));
 
-    sortAction = new QAction(tr("&Sort..."), this);
+    sortAction = new QAction(tr("Sort..."), this);
     sortAction->setStatusTip(tr("Sort the selected cells or all the "
                                 "cells"));
     connect(sortAction, SIGNAL(triggered()), this, SLOT(sort()));
@@ -380,7 +380,7 @@ void MainWindow::createActions()
     connect(generateQRcodeDialogAction, SIGNAL(triggered(bool)),
             this, SLOT(generateQRcode()));
 
-    showGridAction = new QAction(tr("&Show Grid"), this);
+    showGridAction = new QAction(tr("Show Grid"), this);
     showGridAction->setCheckable(true);
     showGridAction->setChecked(spreadsheet->showGrid());
     showGridAction->setStatusTip(tr("Show or hide the spreadsheet's "
@@ -393,7 +393,7 @@ void MainWindow::createActions()
             spreadsheet->viewport(), SLOT(update()));
 #endif
 
-    autoRecalcAction = new QAction(tr("&Auto-Recalculate"), this);
+    autoRecalcAction = new QAction(tr("Auto-Recalculate"), this);
     autoRecalcAction->setCheckable(true);
     autoRecalcAction->setChecked(spreadsheet->autoRecalculate());
     autoRecalcAction->setStatusTip(tr("Switch auto-recalculation on or "
@@ -401,18 +401,18 @@ void MainWindow::createActions()
     connect(autoRecalcAction, SIGNAL(toggled(bool)),
             spreadsheet, SLOT(setAutoRecalculate(bool)));
 
-    aboutAction = new QAction(tr("&About"), this);
+    aboutAction = new QAction(tr("About"), this);
     aboutAction->setStatusTip(tr("Show the application's About box"));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-    aboutQtAction = new QAction(tr("About &Qt"), this);
+    aboutQtAction = new QAction(tr("About Qt"), this);
     aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 void MainWindow::createMenus()
 {
-    fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu = menuBar()->addMenu(tr("File"));
     fileMenu->addAction(newAction);
     fileMenu->addAction(openAction);
     fileMenu->addAction(saveAction);
@@ -423,13 +423,13 @@ void MainWindow::createMenus()
     fileMenu->addSeparator();
     fileMenu->addAction(exitAction);
 
-    editMenu = menuBar()->addMenu(tr("&Edit"));
+    editMenu = menuBar()->addMenu(tr("Edit"));
     editMenu->addAction(cutAction);
     editMenu->addAction(copyAction);
     editMenu->addAction(pasteAction);
     editMenu->addAction(deleteAction);
 
-    selectSubMenu = editMenu->addMenu(tr("&Select"));
+    selectSubMenu = editMenu->addMenu(tr("Select"));
     selectSubMenu->addAction(selectRowAction);
     selectSubMenu->addAction(selectColumnAction);
     selectSubMenu->addAction(selectAllAction);
@@ -438,7 +438,7 @@ void MainWindow::createMenus()
     editMenu->addAction(findAction);
     editMenu->addAction(goToCellAction);
 
-    toolsMenu = menuBar()->addMenu(tr("&Tools"));
+    toolsMenu = menuBar()->addMenu(tr("Tools"));
     toolsMenu->addAction(recalculateAction);
     toolsMenu->addAction(sortAction);
     toolsMenu->addSeparator();
@@ -447,13 +447,13 @@ void MainWindow::createMenus()
     toolsMenu->addAction(getDataFromMysqlDialogAction);
     toolsMenu->addAction(generateQRcodeDialogAction);
 
-    optionsMenu = menuBar()->addMenu(tr("&Options"));
+    optionsMenu = menuBar()->addMenu(tr("Options"));
     optionsMenu->addAction(showGridAction);
     optionsMenu->addAction(autoRecalcAction);
 
     menuBar()->addSeparator();
 
-    helpMenu = menuBar()->addMenu(tr("&Help"));
+    helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(aboutAction);
     helpMenu->addAction(aboutQtAction);
 }
@@ -468,12 +468,12 @@ void MainWindow::createContextMenu()
 
 void MainWindow::createToolBars()
 {
-    fileToolBar = addToolBar(tr("&File"));
+    fileToolBar = addToolBar(tr("File"));
     fileToolBar->addAction(newAction);
     fileToolBar->addAction(openAction);
     fileToolBar->addAction(saveAction);
 
-    editToolBar = addToolBar(tr("&Edit"));
+    editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(cutAction);
     editToolBar->addAction(copyAction);
     editToolBar->addAction(pasteAction);
@@ -596,7 +596,7 @@ void MainWindow::updateRecentFileActions()
 
     for (int j = 0; j < MaxRecentFiles; ++j) {
         if (j < recentFiles.count()) {
-            QString text = tr("&%1 %2")
+            QString text = tr("%1 %2")
                            .arg(j + 1)
                            .arg(strippedName(recentFiles[j]));
             recentFileActions[j]->setText(text);

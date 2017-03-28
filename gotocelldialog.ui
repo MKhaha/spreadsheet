@@ -16,9 +16,9 @@
    <item>
     <layout class="QHBoxLayout" >
      <item>
-      <widget class="QLabel" name="label" >
-       <property name="text" >
-        <string>&amp;Cell Location:</string>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Cell Location:</string>
        </property>
        <property name="buddy" >
         <cstring>lineEdit</cstring>
